@@ -2,3 +2,4 @@ certs/*.ovpn
 **.key
 **.crt
 **.pem
+sample.ovpn
