@@ -18,21 +18,40 @@ for CLIENT in laptop phone other;
     cp /tmp/sample.ovpn /tmp/configs/${CLIENT}.ovpn
 
     echo -e $"<ca>" >> /tmp/configs/${CLIENT}.ovpn
-    cat /tmp/CA/keys/ca.crt >> /tmp/configs/${CLIENT}.ovpn
+    cat /tmp/CA/keys/ca.crt | sed -n -e '/-----BEGIN CERTIFICATE-----/,$p' >> /tmp/configs/${CLIENT}.ovpn
     echo "</ca>" >> /tmp/configs/${CLIENT}.ovpn
 
     echo -e $"<cert>" >> /tmp/configs/${CLIENT}.ovpn
-    cat /tmp/CA/keys/ca.crt >> /tmp/configs/${CLIENT}.ovpn
+    cat /tmp/CA/keys/${CLIENT}.crt | sed -n -e '/-----BEGIN CERTIFICATE-----/,$p' >> /tmp/configs/${CLIENT}.ovpn
     echo -e $"</cert>" >> /tmp/configs/${CLIENT}.ovpn
 
     echo -e $"<key>" >> /tmp/configs/${CLIENT}.ovpn
-    cat /tmp/CA/keys/${CLIENT}.key
     cat /tmp/CA/keys/${CLIENT}.key >> /tmp/configs/${CLIENT}.ovpn
     echo -e $"</key>" >> /tmp/configs/${CLIENT}.ovpn
 
     echo -e $"<tls-auth>" >> /tmp/configs/${CLIENT}.ovpn
-    cat /tmp/CA/keys/ta.key >> /tmp/configs/${CLIENT}.ovpn
-    echo -e $"</tls-auth> " >> /tmp/configs/${CLIENT}.ovpn
+    cat /tmp/CA/keys/ta.key | sed -n -e '/-----BEGIN OpenVPN Static key V1-----/,$p' >> /tmp/configs/${CLIENT}.ovpn
+    echo -e $"</tls-auth>" >> /tmp/configs/${CLIENT}.ovpn
+
+
+    echo "===================================="
+    echo "This is the server config"
+
+    echo "Paste to Public Server cert"
+    cat /tmp/CA/keys/server.crt | sed -n -e '/-----BEGIN CERTIFICATE-----/,$p'
+   
+    echo "Paste to CA Cert"
+    cat /tmp/CA/keys/ca.crt | sed -n -e '/-----BEGIN CERTIFICATE-----/,$p'
+ 
+    echo "Paste to Private Server Key"
+    cat /tmp/CA/keys/server.key
+    
+    echo "PAste to DH PEM"
+    cat /tmp/CA/keys/dh2048.pem
+
+    echo "Paste to TLS Auth Key"
+    cat /tmp/CA/keys/ta.key | sed -n -e '/-----BEGIN OpenVPN Static key V1-----/,$p'
+
 
   done
 
