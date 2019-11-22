@@ -1,0 +1,4 @@
+certs/*.ovpn
+**.key
+**.crt
+**.pem
