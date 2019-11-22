@@ -63,11 +63,11 @@ export KEY_EXPIRE=3650
 # which will be placed in the certificate.
 # Don't leave any of these fields blank.
 export KEY_COUNTRY="US"
-export KEY_PROVINCE="AK"
-export KEY_CITY="Juneau"
-export KEY_ORG="Someone"
+export KEY_PROVINCE="CA"
+export KEY_CITY="Fort Funston"
+export KEY_ORG="MyOrg"
 export KEY_EMAIL="me@myhost.mydomain"
-export KEY_OU="MyOrg"
+export KEY_OU="This OU"
 
 # X509 Subject Field
 export KEY_NAME="EasyRSA"
